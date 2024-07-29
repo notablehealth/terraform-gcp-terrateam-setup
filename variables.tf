@@ -36,7 +36,21 @@ variable "service_account_name" {
   type        = string
 }
 
-variable "service_account_role" {
-  description = "Role for the service account"
-  type        = string
+#variable "service_account_role" {
+#  description = "Role for the service account"
+#  type        = string
+#  default     = "roles/editor"
+#}
+variable "service_account_roles" {
+  type = list(object({
+    role = string
+    condition = optional(object({
+      title       = string
+      description = string
+      expression  = string
+    }))
+  }))
+  default = [
+    { role = "roles/editor" },
+  ]
 }
