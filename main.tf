@@ -42,7 +42,7 @@ resource "google_project_iam_member" "terrateam_editor" {
   role     = each.value.role
   member   = "serviceAccount:${google_service_account.terrateam.email}"
   dynamic "condition" {
-    for_each = { for condition in each.value.condition : condition.title => condition if each.value.condition != null }
+    for_each = each.value.condition != null ? each.value.condition : {}
     content {
       title       = condition.value.title
       description = condition.value.description
