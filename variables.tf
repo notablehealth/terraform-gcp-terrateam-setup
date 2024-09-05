@@ -16,6 +16,12 @@ variable "github_org" {
   }
 }
 
+variable "repositories" {
+  description = "Restrict to one or more GitHub repositories"
+  type        = list(string)
+  default     = []
+}
+
 variable "service_account_description" {
   description = "Description for the service account"
   type        = string
@@ -28,6 +34,11 @@ variable "workload_identity_pool_id" {
 
 variable "workload_identity_provider" {
   description = "Name for the workload identity provider"
+  type        = string
+}
+
+variable "workload_identity_provider_description" {
+  description = "Description for the workload identity provider"
   type        = string
 }
 
