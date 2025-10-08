@@ -16,17 +16,6 @@ variable "github_org" {
   }
 }
 
-variable "repositories" {
-  description = "Restrict to one or more GitHub repositories"
-  type        = list(string)
-  default     = []
-}
-
-variable "service_account_description" {
-  description = "Description for the service account"
-  type        = string
-}
-
 variable "workload_identity_pool_id" {
   description = "ID for the workload identity pool"
   type        = string
@@ -42,26 +31,17 @@ variable "workload_identity_provider_description" {
   type        = string
 }
 
-variable "service_account_name" {
-  description = "Name for the service account"
-  type        = string
+variable "default_repositories" {
+  description = "Restrict to one or more GitHub repositories, if not overridden per service account."
+  type        = list(string)
+  default     = []
 }
 
-#variable "service_account_role" {
-#  description = "Role for the service account"
-#  type        = string
-#  default     = "roles/editor"
-#}
-variable "service_account_roles" {
+variable "service_accounts" {
+  description = "Service accounts for impersonation by terrateam"
   type = list(object({
-    role = string
-    condition = optional(object({
-      title       = string
-      description = string
-      expression  = string
-    }))
+    name         = string
+    description  = optional(string, "Terrateam service account")
+    repositories = optional(list(string), [])
   }))
-  default = [
-    { role = "roles/editor" },
-  ]
 }
